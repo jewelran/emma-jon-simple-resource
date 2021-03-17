@@ -1,0 +1,32 @@
+.header img{
+    height: 80px;
+}
+.header{
+    text-align: center;
+    padding:40px 0px;
+    ;
+
+}
+.header nav{
+    background-color: black;
+    line-height: 40px;
+    font-size: 20px;
+
+}
+nav a{
+    text-decoration: none;
+    color: white;
+    margin-right: 20px;
+    padding: 5px;
+}
+nav a:hover{
+    color: orange;
+    background-color: gray;
+}
+.search_box input{
+    padding: 5px;
+    width: 60%;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    font-size: 20px;
+}
