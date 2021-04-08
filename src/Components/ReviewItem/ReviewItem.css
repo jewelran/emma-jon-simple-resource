@@ -1,14 +1,11 @@
-.product{
-    display: flex;
+.reviewItemContainer{
+    width: 960px;
+    margin: 0 auto;
     border-bottom: 1px solid gray;
-    padding: 5px;
-    margin-bottom: 10px;
+    padding: 20px;
+    display: flex;
 }
-.product img{
-    margin-right: 20px;
-    margin-left: 20px;
-}
-.add-btn{
+.cartRemove{
     padding: 10px 40px;
     color: white;
     font-size: 20px;

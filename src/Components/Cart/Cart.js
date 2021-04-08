@@ -7,8 +7,8 @@ const Cart = (props) => {
   //for loop
   let total = 0;
   for (let i = 0; i < cart.length; i++) {
-    const totalPrice = cart[i];
-    total = total + totalPrice.price;
+    const product = cart[i];
+    total = total + product.price * product.quantity;
   }
   let shipping = 0;
   if (total > 35) {
@@ -35,6 +35,10 @@ const Cart = (props) => {
         <small>Vat + Text : {formetNumbe(text)}</small>
       </p>
       <h5>total price: {formetNumbe(grandTotal)}</h5>
+      <br/>
+     {
+       props.children
+     }
     </div>
   );
 };

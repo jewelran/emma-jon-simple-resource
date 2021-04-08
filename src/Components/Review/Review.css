@@ -1,0 +1,9 @@
+.reviewContainer>h3{
+    width: 960px;
+    margin: 0 auto;
+    padding: 10px;
+    margin-left: 212px;
+}
+.reviewContainer{
+    display: flex;
+}
