@@ -11,14 +11,23 @@ const Review = () => {
     useEffect(() => {
         const saveCart = getDatabaseCart()
         const productKeys = Object.keys(saveCart)
-        const cartProduct = productKeys.map(key => {
-            const product = fakeData.find(pd => pd.key === key)
-           product.quantity = saveCart[key];
-            return product;
-        } )
+        fetch('http://localhost:5000/productByKeys',{
+            method:"POST",
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(productKeys)
+        })
+        .then(res => res.json())
+        .then(data => setCart(data))
+        // const cartProduct = productKeys.map(key => {
+        //     const product = fakeData.find(pd => pd.key === key)
+        //    product.quantity = saveCart[key];
+        //     return product;
+        // } )
 
-        setCart(cartProduct);
-        console.log(cartProduct);
+        // setCart(cartProduct);
+        // console.log(cartProduct);
     },[])
     const removeItem = (productKey) => {
         const newCart = cart.filter(pd => pd.key !== productKey)

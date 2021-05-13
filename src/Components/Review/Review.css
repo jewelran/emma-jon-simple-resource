@@ -6,4 +6,7 @@
 }
 .reviewContainer{
     display: flex;
+    width: 68%;
+    border: 1px solid red;
+    margin: auto;
 }

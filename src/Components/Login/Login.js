@@ -99,6 +99,8 @@ const Login = () => {
       setUser(newUserInfo);
     }
   };
+
+  
   const handleSubmit = (e) => {
     if (newUser && user.email && user.password) {
       firebase

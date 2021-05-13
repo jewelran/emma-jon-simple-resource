@@ -14,7 +14,7 @@ const ReviewItem = (props) => {
            <h4>{name}</h4>
            <h5>stock: {stock}</h5>
             <h5>quantity: {quantity}</h5>
-            <h5>Price: {price}</h5>
+            <h5>Price: ${price}</h5>
             <h5>star:  {star}</h5>
             <a href={url} target= "blank"><p> go to amazon </p></a>
             <button onClick = {() => props.removeItem(key)} className = "cartRemove">Remove item</button>
