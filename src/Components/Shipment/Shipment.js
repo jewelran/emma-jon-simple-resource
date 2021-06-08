@@ -1,39 +1,45 @@
+
 import React, { useContext } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { userContext } from "../../App";
 import { getDatabaseCart, processOrder } from "../../utilities/databaseManager";
-
+import ProcessPayment from "../ProcessPayment/ProcessPayment";
+import "./Shipment.css"
 const Shipment = () => {
   const [loggedInUser, setLoggedInUser] = useContext(userContext);
+  const [ shippingData, setShippingData] = useState(null)
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm();
-const onSubmit = (data) => {
-  const saveCart = getDatabaseCart()
-  const orderDetails = {
-    ...loggedInUser, products: saveCart, shipment: data, orderTime: new Date()
-  }
-
-  fetch('http://localhost:5000/addOrder',{
-    method:"POST",
-    headers:{ 
-        'Content-Type' : 'application/json'
-    },
-    body: JSON.stringify(orderDetails)
-  })
-  .then(res => res.json())
-  .then(data => {
-    if (data) {
-      // clear shipment ......   
-      processOrder();
-      alert('your order is success')
+  const  handlePaymentSuccess = paymentId => {
+    const saveCart = getDatabaseCart()
+    const orderDetails = {
+      ...loggedInUser, paymentId, products: saveCart, orderTime: new Date().toDateString("dd/MM/yyyy"), shipment: shippingData
     }
-  })
-
-  console.log(data)
+  
+    fetch('https://pure-headland-27401.herokuapp.com/addOrder',{
+      method:"POST",
+      headers:{ 
+          'Content-Type' : 'application/json'
+      },
+      body: JSON.stringify(orderDetails)
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data) {
+        // clear shipment ......   
+        processOrder();
+        alert('your order is success')
+      }
+    })
+  
+  }
+const onSubmit = (data) => {
+  setShippingData(data)
 
 };
 
@@ -41,8 +47,9 @@ const onSubmit = (data) => {
   //   console.log(watch("example")); // watch input value by passing the name of it
 
   return (
-    <div className="">  
-    <form
+    <div className="shipmentContainer">  
+   <div style = {{display: shippingData ? "none" : "block"}}  className="col-md-6 shipmentForm">
+   <form
       style={{ textAlign: "center", padding: "30px" }}
       onSubmit={handleSubmit(onSubmit)}
     >
@@ -84,6 +91,10 @@ const onSubmit = (data) => {
       <input type="submit" />
 
     </form>
+   </div>
+   <div style = {{display: shippingData ? "block" : "none"}} className="col-md-6 paymentContainer">
+     <ProcessPayment handlePayment = {handlePaymentSuccess}></ProcessPayment>
+   </div>
     </div>
   );
 };

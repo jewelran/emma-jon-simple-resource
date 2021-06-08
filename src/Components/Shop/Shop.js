@@ -11,19 +11,21 @@ import "./Shop.css";
 const Shop = () => {
   // const first20 = fakeData.slice(0, 20);
   const [products, setProduct] = useState([]);
+  const [search, setSearch] = useState("");
+  console.log(search);
   // for add state....
   const [cart, setCart] = useState([]);
   // console.log(products);
   useEffect(() => {
-    fetch("http://localhost:5000/products")
+    fetch(`https://pure-headland-27401.herokuapp.com/products?search=${search}`)
       .then((res) => res.json())
       .then((data) => setProduct(data));
-  });
+  },[search]);
 
   useEffect(() => {
     const saveCart = getDatabaseCart();
     const productKeys = Object.keys(saveCart);
-    fetch('http://localhost:5000/productByKeys',{
+    fetch('https://pure-headland-27401.herokuapp.com/productByKeys',{
             method:"POST",
             headers:{
                 "Content-Type": "application/json"
@@ -56,9 +58,13 @@ const Shop = () => {
 
     addToDatabaseCart(product.key, count);
   };
+  const handleSearch = e => {
+    setSearch(e.target.value)
+  }
   return (
     <div className="shop-container">
       <div className="products-container">
+        <input type="text" onBlur= {handleSearch} name="" id="" />
         {products.map((pd) => (
           <Product
             handleAddProduct={handleAddProduct}

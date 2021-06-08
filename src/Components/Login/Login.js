@@ -3,7 +3,7 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import firebaseConfig from "./firebase-config";
 import { userContext } from './../../App';
-import { useHistory, useLocation } from "react-router";
+import { useHistory, useLocation } from "react-router-dom";
 firebase.initializeApp(firebaseConfig);
 const Login = () => {
   const [newUser, setNewUser] = useState(false);
@@ -36,9 +36,19 @@ const Login = () => {
         };
         setUser(isSignInUser);
         setLoggedInUser(isSignInUser)
+        userInfoToken();
         history.replace(from)
       });
   };
+
+  const userInfoToken = () => {
+    firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+      sessionStorage.setItem("token", idToken)
+      // ...
+    }).catch(function(error) {
+      // Handle error
+    });
+  }
 
   const isSignOut = () => {
     firebase

@@ -11,7 +11,7 @@ const Review = () => {
     useEffect(() => {
         const saveCart = getDatabaseCart()
         const productKeys = Object.keys(saveCart)
-        fetch('http://localhost:5000/productByKeys',{
+        fetch('https://pure-headland-27401.herokuapp.com/productByKeys',{
             method:"POST",
             headers:{
                 "Content-Type": "application/json"
